@@ -48,6 +48,7 @@ object TpsWidget {
     }
 
     private fun round(tps: Float): String {
+        if (tps < 0.01f || tps > 1000000000.0f) return "Unknown"
         var copy = tps
         copy = if(ConfigManager.config?.satisfyTpsCount == true) {
             Math.round(copy).toFloat()
