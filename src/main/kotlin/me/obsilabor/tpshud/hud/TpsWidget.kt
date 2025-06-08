@@ -48,12 +48,12 @@ object TpsWidget {
     }
 
     private fun round(tps: Float): String {
-        if (tps < 0.01f || tps > 1000000000.0f) return "Unknown"
-        var copy = tps
+        var copy = tps.toDouble()
+        if (copy !in 0.0..1000000.0) return "NaN"
         copy = if(ConfigManager.config?.satisfyTpsCount == true) {
-            Math.round(copy).toFloat()
+            kotlin.math.round(copy)
         } else {
-            BigDecimal(copy.toDouble()).setScale(2, RoundingMode.HALF_UP).toFloat() // Limit characters
+            BigDecimal(copy).setScale(2, RoundingMode.HALF_UP).toDouble()
         }
         return copy.toString()
     }
